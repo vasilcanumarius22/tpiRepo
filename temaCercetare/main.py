@@ -1,5 +1,8 @@
 import numpy as np
-import matplotlib.pyplot as plt
+
+# !IMPORTANT: using matplotlib version 3.5.3 (older version)
+# current live version is 3.6.0
+import matplotlib.pyplot as plt  # version 3.5.3
 
 import tensorflow as tf
 from tensorflow import keras
@@ -28,7 +31,7 @@ dataset = np.expand_dims(dataset, axis=-1)
 indexes = np.arange(dataset.shape[0])
 np.random.shuffle(indexes)
 train_index = indexes[: int(0.9 * dataset.shape[0])]
-val_index = indexes[int(0.9 * dataset.shape[0]) :]
+val_index = indexes[int(0.9 * dataset.shape[0]):]
 train_dataset = dataset[train_index]
 val_dataset = dataset[val_index]
 
@@ -36,11 +39,12 @@ val_dataset = dataset[val_index]
 train_dataset = train_dataset / 255
 val_dataset = val_dataset / 255
 
+
 # We'll define a helper function to shift the frames, where
 # `x` is frames 0 to n - 1, and `y` is frames 1 to n.
 def create_shifted_frames(data):
-    x = data[:, 0 : data.shape[1] - 1, :, :]
-    y = data[:, 1 : data.shape[1], :, :]
+    x = data[:, 0: data.shape[1] - 1, :, :]
+    y = data[:, 1: data.shape[1], :, :]
     return x, y
 
 
@@ -53,7 +57,7 @@ print("Training Dataset Shapes: " + str(x_train.shape) + ", " + str(y_train.shap
 print("Validation Dataset Shapes: " + str(x_val.shape) + ", " + str(y_val.shape))
 
 # Construct a figure on which we will visualize the images.
-fig, axes = plt.subplots(4, 5, figsize=(10, 8))
+fig, axes = plt.subplots(nrows=4, ncols=5, figsize=(10, 8))
 
 # Plot each of the sequential images for one random data example.
 data_choice = np.random.choice(range(len(train_dataset)), size=1)[0]
